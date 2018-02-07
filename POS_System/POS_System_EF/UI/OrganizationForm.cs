@@ -45,11 +45,11 @@ namespace POS_System_EF.UI
                 org.Address = txtAddress.Text;
                 org.Code = org.GenerateCode(org.Name, org.Address);
                 org.Logo = org.Logo;
-                db = new ManagerContext();
                 bool IsContactNoExist = db.Organizations.Count(c => c.ContactNo == org.ContactNo) > 0;
                 if(IsContactNoExist)
                 {
                     MessageBox.Show("Contact No Allready Exist");
+                    return;
                 }
                 else
                 {
@@ -57,13 +57,11 @@ namespace POS_System_EF.UI
                     int count = db.SaveChanges();
                     if (count > 0)
                     {
-                        MessageBox.Show("Saved");
-
-
+                        MessageBox.Show("Organization Saved");
                     }
                     else
                     {
-                        MessageBox.Show("Failed");
+                        MessageBox.Show("Save Failed");
                     }
                     LoadDataGridView();
                     ClearTextBoxAll();
@@ -106,32 +104,27 @@ namespace POS_System_EF.UI
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message + "\n" + "Image format is not valid");
             }
         }
-
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearTextBoxAll();
+            
         }
-
         private void btnClearImage_Click(object sender, EventArgs e)
         {
             pictureBoxOrg.Image = null;
         }
-
         private void buttonHome_Click(object sender, EventArgs e)
         {
-            OpeningForm openingForm=new OpeningForm();
-            openingForm.Show();
-            this.Hide();
+            //OpeningForm openingForm=new OpeningForm();
+            //openingForm.Show();
+            this.Close();
         }
-
         private void textBoxSrc_TextChanged(object sender, EventArgs e)
         {
             string textSearch = textBoxSrc.Text;
-            ManagerContext db = new ManagerContext();
             var organization = (from org in db.Organizations
                                where org.Name.StartsWith(textSearch)
                                select new
@@ -141,8 +134,12 @@ namespace POS_System_EF.UI
                                    org.ContactNo
                                }).ToList();
             dgvOrganization.DataSource = organization;
-            
+        }
 
+        private void btnClearSrcBox_Click(object sender, EventArgs e)
+        {
+            LoadDataGridView();
+            textBoxSrc.Clear();
         }
     }
 }

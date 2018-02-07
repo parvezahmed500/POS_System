@@ -60,6 +60,7 @@
             this.dgvOrganization.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOrganization.Location = new System.Drawing.Point(404, 70);
             this.dgvOrganization.Name = "dgvOrganization";
+            this.dgvOrganization.RowHeadersVisible = false;
             this.dgvOrganization.Size = new System.Drawing.Size(608, 283);
             this.dgvOrganization.TabIndex = 28;
             // 
@@ -166,6 +167,7 @@
             this.btnClearSrcBox.TabIndex = 26;
             this.btnClearSrcBox.Text = "Clear";
             this.btnClearSrcBox.UseVisualStyleBackColor = true;
+            this.btnClearSrcBox.Click += new System.EventHandler(this.btnClearSrcBox_Click);
             // 
             // label6
             // 

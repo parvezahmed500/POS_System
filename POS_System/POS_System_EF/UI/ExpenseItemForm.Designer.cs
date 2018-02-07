@@ -51,7 +51,7 @@
             this.buttonPrint.Location = new System.Drawing.Point(886, 399);
             this.buttonPrint.Name = "buttonPrint";
             this.buttonPrint.Size = new System.Drawing.Size(75, 23);
-            this.buttonPrint.TabIndex = 60;
+            this.buttonPrint.TabIndex = 75;
             this.buttonPrint.Text = "Print";
             this.buttonPrint.UseVisualStyleBackColor = true;
             // 
@@ -60,7 +60,7 @@
             this.buttonHome.Location = new System.Drawing.Point(977, 399);
             this.buttonHome.Name = "buttonHome";
             this.buttonHome.Size = new System.Drawing.Size(75, 23);
-            this.buttonHome.TabIndex = 59;
+            this.buttonHome.TabIndex = 74;
             this.buttonHome.Text = "Home";
             this.buttonHome.UseVisualStyleBackColor = true;
             this.buttonHome.Click += new System.EventHandler(this.buttonHome_Click);
@@ -70,16 +70,18 @@
             this.buttonSrcClear.Location = new System.Drawing.Point(977, 38);
             this.buttonSrcClear.Name = "buttonSrcClear";
             this.buttonSrcClear.Size = new System.Drawing.Size(75, 23);
-            this.buttonSrcClear.TabIndex = 58;
+            this.buttonSrcClear.TabIndex = 73;
             this.buttonSrcClear.Text = "Clear";
             this.buttonSrcClear.UseVisualStyleBackColor = true;
+            this.buttonSrcClear.Click += new System.EventHandler(this.buttonSrcClear_Click);
             // 
             // textBoxSrc
             // 
             this.textBoxSrc.Location = new System.Drawing.Point(759, 41);
             this.textBoxSrc.Name = "textBoxSrc";
             this.textBoxSrc.Size = new System.Drawing.Size(193, 20);
-            this.textBoxSrc.TabIndex = 57;
+            this.textBoxSrc.TabIndex = 72;
+            this.textBoxSrc.TextChanged += new System.EventHandler(this.textBoxSrc_TextChanged);
             // 
             // dgvItem
             // 
@@ -87,15 +89,16 @@
             this.dgvItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItem.Location = new System.Drawing.Point(388, 80);
             this.dgvItem.Name = "dgvItem";
+            this.dgvItem.RowHeadersVisible = false;
             this.dgvItem.Size = new System.Drawing.Size(664, 295);
-            this.dgvItem.TabIndex = 56;
+            this.dgvItem.TabIndex = 71;
             // 
             // btnClear
             // 
             this.btnClear.Location = new System.Drawing.Point(150, 271);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
-            this.btnClear.TabIndex = 55;
+            this.btnClear.TabIndex = 70;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -105,7 +108,7 @@
             this.btnSave.Location = new System.Drawing.Point(244, 271);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 54;
+            this.btnSave.TabIndex = 69;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -116,7 +119,7 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(213, 71);
-            this.txtDescription.TabIndex = 52;
+            this.txtDescription.TabIndex = 68;
             // 
             // txtCode
             // 
@@ -124,14 +127,14 @@
             this.txtCode.Name = "txtCode";
             this.txtCode.ReadOnly = true;
             this.txtCode.Size = new System.Drawing.Size(213, 20);
-            this.txtCode.TabIndex = 51;
+            this.txtCode.TabIndex = 67;
             // 
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(106, 80);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(213, 20);
-            this.txtName.TabIndex = 49;
+            this.txtName.TabIndex = 66;
             // 
             // cmbCategory
             // 
@@ -140,7 +143,7 @@
             this.cmbCategory.Location = new System.Drawing.Point(106, 43);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(213, 21);
-            this.cmbCategory.TabIndex = 48;
+            this.cmbCategory.TabIndex = 65;
             // 
             // label6
             // 
@@ -148,7 +151,7 @@
             this.label6.Location = new System.Drawing.Point(32, 161);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(60, 13);
-            this.label6.TabIndex = 45;
+            this.label6.TabIndex = 63;
             this.label6.Text = "Description";
             // 
             // label5
@@ -157,7 +160,7 @@
             this.label5.Location = new System.Drawing.Point(32, 119);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 13);
-            this.label5.TabIndex = 44;
+            this.label5.TabIndex = 62;
             this.label5.Text = "Code";
             // 
             // label2
@@ -166,7 +169,7 @@
             this.label2.Location = new System.Drawing.Point(32, 80);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 47;
+            this.label2.TabIndex = 64;
             this.label2.Text = "Name";
             // 
             // label1
@@ -175,7 +178,7 @@
             this.label1.Location = new System.Drawing.Point(32, 43);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
-            this.label1.TabIndex = 42;
+            this.label1.TabIndex = 61;
             this.label1.Text = "Category";
             // 
             // ExpenseItemForm

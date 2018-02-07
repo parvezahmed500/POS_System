@@ -31,6 +31,19 @@ namespace POS_System_EF.UI
                 supplier.Email = txtEmail.Text;
                 supplier.Address = txtAddress.Text;
                 supplier.Code = supplier.GenerateCode(supplier.Name, supplier.Address, supplier.ContactNo);
+                bool isExistContactNo = db.Suppliers.Count(c => c.ContactNo ==supplier.ContactNo) > 0;
+                bool isMailExist = db.Suppliers.Count(mail => mail.Email == supplier.Email) > 0;
+                if (isExistContactNo)
+                {
+                    MessageBox.Show("Contact No already exist");
+                    return;
+                }
+
+                if (isMailExist)
+                {
+                    MessageBox.Show("Email already exists");
+                    return;
+                }
                 if (chkSupplier.Checked)
                 {
 
@@ -38,7 +51,7 @@ namespace POS_System_EF.UI
                     int count = db.SaveChanges();
                     if (count > 0)
                     {
-                        MessageBox.Show("Successfully Saved");
+                        MessageBox.Show("Supplier successfully Saved");
                     }
                     else
                     {
@@ -58,7 +71,7 @@ namespace POS_System_EF.UI
                     int count = db.SaveChanges();
                     if (count > 0)
                     {
-                        MessageBox.Show("Successfully Saved");
+                        MessageBox.Show("Customer successfully Saved");
                     }
                     else
                     {
@@ -66,7 +79,11 @@ namespace POS_System_EF.UI
                     }
                     LoadDataGridViewCustomr();
                 }
-
+                else
+                {
+                    MessageBox.Show("Please Select Supplier or Customer");
+                    return;
+                }
 
                 ClearAllTextBox();
             }
@@ -75,7 +92,10 @@ namespace POS_System_EF.UI
                 MessageBox.Show(ex.Message + "\n" + "Please fill text box!");
             }
         }
-
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearAllTextBox();
+        }
         private void ClearAllTextBox()
         {
             txtPartyName.Clear();
@@ -94,9 +114,17 @@ namespace POS_System_EF.UI
         }
 
         private void LoadDataGridViewSupplier()
-        {                
-            
-            dataGridView.DataSource = db.Suppliers.ToList();
+        {
+            var loadSupplier = (from supplier in db.Suppliers
+                                select new
+                                {
+                                    SupplierName = supplier.Name,
+                                    supplier.Code,
+                                    supplier.ContactNo,
+                                    supplier.Email,
+                                    supplier.Address
+                                }).ToList();
+            dataGridView.DataSource = loadSupplier.ToList();
         }
         private void buttonCustomer_Click(object sender, EventArgs e)
         {
@@ -105,28 +133,59 @@ namespace POS_System_EF.UI
 
         private void LoadDataGridViewCustomr()
         {
-            dataGridView.DataSource = db.Customers.ToList();
+            var loadCustomer = (from customer in db.Customers
+                select new
+                {
+                    CustomerName = customer.Name,
+                    customer.Code,
+                    customer.ContactNo,
+                    customer.Email,
+                    customer.Address
+                }).ToList();
+            
+            dataGridView.DataSource = loadCustomer.ToList();
         }
 
         private void buttonHome_Click(object sender, EventArgs e)
         {
-            OpeningForm openingForm=new OpeningForm();
-            openingForm.Show();
-            this.Hide();
+            //OpeningForm openingForm=new OpeningForm();
+            //openingForm.Show();
+            this.Close();
         }
 
         private void textBoxSrc_TextChanged(object sender, EventArgs e)
         {
             string textSearch = textBoxSrc.Text;
-            var customer = (from c in db.Customers
+            {
+                var customer = (from c in db.Customers
                                 where c.Name.StartsWith(textSearch)
                                 select new
                                 {
-                                    c.Name,
+                                    CustomerName = c.Name,
                                     c.Code,
-                                    c.ContactNo
+                                    c.ContactNo,
+                                    c.Address,
+                                    c.Email
                                 }).ToList();
-            dataGridView.DataSource = customer;
+                dataGridView.DataSource = customer;
+            }
+            
+            var supplier1 = (from c in db.Suppliers
+                            where c.Name.StartsWith(textSearch)
+                            select new
+                            {
+                                SupplierName=c.Name,
+                                c.Code,
+                                c.ContactNo,
+                                c.Address,
+                                c.Email
+                            }).ToList();
+            dataGridView.DataSource = supplier1;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            textBoxSrc.Clear();
         }
     }
 }

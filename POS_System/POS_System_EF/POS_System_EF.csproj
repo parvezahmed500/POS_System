@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="EntityModels\Customer.cs" />
     <Compile Include="EntityModels\Employee.cs" />
+    <Compile Include="EntityModels\ExpenseCategory.cs" />
+    <Compile Include="EntityModels\ExpenseItem.cs" />
     <Compile Include="EntityModels\Item.cs" />
     <Compile Include="EntityModels\ItemCategory.cs" />
     <Compile Include="EntityModels\Organization.cs" />
@@ -77,12 +79,36 @@
     <Compile Include="Migrations\201802061452201_ItemCategoryClassChanged.Designer.cs">
       <DependentUpon>201802061452201_ItemCategoryClassChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802061748427_itemcategory_class_change.cs" />
+    <Compile Include="Migrations\201802061748427_itemcategory_class_change.Designer.cs">
+      <DependentUpon>201802061748427_itemcategory_class_change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802062158553_expense_category_added.cs" />
+    <Compile Include="Migrations\201802062158553_expense_category_added.Designer.cs">
+      <DependentUpon>201802062158553_expense_category_added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802062227579_expense_item_added.cs" />
+    <Compile Include="Migrations\201802062227579_expense_item_added.Designer.cs">
+      <DependentUpon>201802062227579_expense_item_added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UI\EmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\EmployeeForm.Designer.cs">
       <DependentUpon>EmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ExpenseCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ExpenseCategoryForm.Designer.cs">
+      <DependentUpon>ExpenseCategoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ExpenseItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ExpenseItemForm.Designer.cs">
+      <DependentUpon>ExpenseItemForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
@@ -143,8 +169,23 @@
     <EmbeddedResource Include="Migrations\201802061452201_ItemCategoryClassChanged.resx">
       <DependentUpon>201802061452201_ItemCategoryClassChanged.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802061748427_itemcategory_class_change.resx">
+      <DependentUpon>201802061748427_itemcategory_class_change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802062158553_expense_category_added.resx">
+      <DependentUpon>201802062158553_expense_category_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802062227579_expense_item_added.resx">
+      <DependentUpon>201802062227579_expense_item_added.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\EmployeeForm.resx">
       <DependentUpon>EmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ExpenseCategoryForm.resx">
+      <DependentUpon>ExpenseCategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ExpenseItemForm.resx">
+      <DependentUpon>ExpenseItemForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

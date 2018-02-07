@@ -62,5 +62,29 @@ namespace POS_System_EF
             PurchaseForm pForm = new PurchaseForm();
             pForm.Show();
         }
+
+        private void homeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //MainForm main=new MainForm();
+            //main.Show();
+            this.Close();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void expenseCategorySetUpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExpenseCategoryForm expense=new ExpenseCategoryForm();
+            expense.Show();
+        }
+
+        private void itemSetupToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ExpenseItemForm expenseItem=new ExpenseItemForm();
+            expenseItem.Show();
+        }
     }
 }

@@ -17,8 +17,9 @@ namespace POS_System_EF.Managers
         public DbSet<Item> Items { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        
 
+        public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
+        public DbSet<ExpenseItem> ExpenseItems { get; set; } 
         
     }
 }

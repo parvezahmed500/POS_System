@@ -46,6 +46,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategoryList)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -67,6 +68,7 @@
             this.buttonSrcClear.TabIndex = 38;
             this.buttonSrcClear.Text = "Clear";
             this.buttonSrcClear.UseVisualStyleBackColor = true;
+            this.buttonSrcClear.Click += new System.EventHandler(this.buttonSrcClear_Click);
             // 
             // buttonHome
             // 
@@ -135,6 +137,7 @@
             this.btnClear.TabIndex = 50;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // cmbRootCategory
             // 
@@ -226,6 +229,15 @@
             this.label1.TabIndex = 41;
             this.label1.Text = "Name";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(627, 37);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.TabIndex = 41;
+            this.label5.Text = "Search Box";
+            // 
             // ItemCategoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,6 +249,7 @@
             this.Controls.Add(this.buttonHome);
             this.Controls.Add(this.dgvCategoryList);
             this.Controls.Add(this.textBoxSrc);
+            this.Controls.Add(this.label5);
             this.Name = "ItemCategoryForm";
             this.Text = "Item Category Form";
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategoryList)).EndInit();
@@ -267,5 +280,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
     }
 }

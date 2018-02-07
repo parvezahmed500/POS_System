@@ -23,48 +23,55 @@ namespace POS_System_EF.UI
             ComboBoxData();
             LoadDataGridView();
         }
-
         private void ComboBoxData()
         {
-            cmbOutlet.DataSource = db.Outlets.ToList();
-            cmbOutlet.DisplayMember = "Name";
-            cmbOutlet.ValueMember = "Id";
-            cmbOutlet.SelectedIndex = -1;
-
-
             cmbOrg.DataSource = db.Organizations.ToList();
             cmbOrg.DisplayMember = "Name";
             cmbOrg.ValueMember = "Id";
             cmbOrg.SelectedIndex = -1;
         }
+        private void cmbOrg_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (cmbOrg.SelectedValue != null)
+            {
+                var cmboutletdata = (from outlet in db.Outlets
+                                     where outlet.OrganizationId == (int)cmbOrg.SelectedValue
+                                     select outlet);
 
+                cmbOutlet.DataSource = cmboutletdata.ToList();
+            }
+            cmbOutlet.DisplayMember = "Name";
+            cmbOutlet.ValueMember = "Id";
+            cmbOutlet.SelectedIndex = -1;
+        }
         private void LoadDataGridView()
         {
             var dgvShow = (from emp in db.Employees
                            join outlet in db.Outlets on emp.OutletId equals outlet.Id
-                select new
-                {
-                    OutletName=outlet.Name,
-                    emp.Name,
-                    emp.Code,
-                    emp.ContactNo,
-                    emp.Email,
-                    emp.Image,
-                    emp.JoiningDate,
-                    emp.FathersName,
-                    emp.MothersName,
-                    emp.PresentAddress,
-                    emp.PermanentAddress
-                }).ToList();
+                           join org in db.Organizations on emp.OrganizationId equals org.Id
+                           select new
+                           {
+                               emp.Name,
+                               emp.Code,
+                               emp.ContactNo,
+                               emp.Email,
+                               emp.NID,
+                               emp.Image,
+                               emp.JoiningDate,
+                               OrganizationName = emp.Organization.Name,
+                               OutletName = emp.Outlet.Name,
+                               emp.FathersName,
+                               emp.MothersName,
+                               emp.PresentAddress,
+                               emp.PermanentAddress
+                           }).ToList();
             dataGridViewEmployee.DataSource = dgvShow;
         }
-
         private void btnSave_Click_1(object sender, EventArgs e)
         {
             try
             {
                 aEmployee.Name = txtName.Text;
-                
                 aEmployee.OrganizationId = (int)cmbOrg.SelectedValue;
                 aEmployee.OutletId = (int)cmbOutlet.SelectedValue;
                 aEmployee.JoiningDate = dtpJoining.Value;
@@ -79,16 +86,17 @@ namespace POS_System_EF.UI
                 aEmployee.PermanentAddress = txtPermanentAddress.Text;
                 aEmployee.Code = aEmployee.GenerateCode(aEmployee.Name, aEmployee.ContactNo);
                 aEmployee.Image = aEmployee.Image;
+
                 bool IsExistContactNo = db.Employees.Count(c => c.ContactNo == aEmployee.ContactNo) > 0;
                 bool IsMailExist = db.Employees.Count(mail => mail.Email == aEmployee.Email) > 0;
                 if(IsExistContactNo)
                 {
-                    MessageBox.Show("Contact No Exist.......Try Another one");
+                    MessageBox.Show("Contact No already exist");
                 }
 
                 else if(IsMailExist)
                 {
-                    MessageBox.Show("Email Exist");
+                    MessageBox.Show("Email already exists");
                 }
                 else
                 {
@@ -115,7 +123,6 @@ namespace POS_System_EF.UI
             }
             
         }
-
         private void ClearTextBoxAll()
         {
             txtName.Clear();
@@ -134,7 +141,6 @@ namespace POS_System_EF.UI
             dtpJoining.ResetText();
             pictureBoxEmp.Image = null;
         }
-
         private void buttonUpload_Click(object sender, EventArgs e)
         {
             try
@@ -159,7 +165,6 @@ namespace POS_System_EF.UI
                 MessageBox.Show(ex.Message + "\n" + "Image format is not valid");
             }
         }
-
         private void btnClearImage_Click(object sender, EventArgs e)
         {
             pictureBoxEmp.Image = null;
@@ -169,27 +174,37 @@ namespace POS_System_EF.UI
         {
             ClearTextBoxAll();
         }
-
         private void buttonHome_Click(object sender, EventArgs e)
         {
-            OpeningForm openingForm=new OpeningForm();
-            openingForm.Show();
-            this.Hide();
+            //OpeningForm openingForm=new OpeningForm();
+            //openingForm.Show();
+            this.Close();
         }
-
         private void textBoxSrc_TextChanged(object sender, EventArgs e)
         {
             string textSearch = textBoxSrc.Text;
-            ManagerContext db = new ManagerContext();
             var employees = (from emp in db.Employees
                                 where emp.Name.StartsWith(textSearch)
                                 select new
                                 {
                                     emp.Name,
                                     emp.Code,
-                                    emp.ContactNo
+                                    emp.ContactNo,
+                                    emp.NID,
+                                    OutletName=emp.Outlet.Name,
+                                    OrganizarionName=emp.Organization.Name,
+                                    emp.Email,
+                                    emp.FathersName,
+                                    emp.MothersName,
+                                    emp.PresentAddress,
+                                    emp.PermanentAddress
                                 }).ToList();
             dataGridViewEmployee.DataSource = employees;
+        }
+        private void buttonSrcClear_Click(object sender, EventArgs e)
+        {
+            LoadDataGridView();
+            textBoxSrc.Clear();
         }
     }
 }

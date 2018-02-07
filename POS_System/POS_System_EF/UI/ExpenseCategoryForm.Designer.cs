@@ -53,7 +53,7 @@
             this.buttonPrint.Location = new System.Drawing.Point(850, 404);
             this.buttonPrint.Name = "buttonPrint";
             this.buttonPrint.Size = new System.Drawing.Size(75, 23);
-            this.buttonPrint.TabIndex = 57;
+            this.buttonPrint.TabIndex = 74;
             this.buttonPrint.Text = "Print";
             this.buttonPrint.UseVisualStyleBackColor = true;
             // 
@@ -62,7 +62,7 @@
             this.btnSaveCategory.Location = new System.Drawing.Point(266, 281);
             this.btnSaveCategory.Name = "btnSaveCategory";
             this.btnSaveCategory.Size = new System.Drawing.Size(75, 23);
-            this.btnSaveCategory.TabIndex = 56;
+            this.btnSaveCategory.TabIndex = 73;
             this.btnSaveCategory.Text = "Save";
             this.btnSaveCategory.UseVisualStyleBackColor = true;
             this.btnSaveCategory.Click += new System.EventHandler(this.btnSaveCategory_Click);
@@ -72,16 +72,17 @@
             this.buttonSrcClear.Location = new System.Drawing.Point(950, 33);
             this.buttonSrcClear.Name = "buttonSrcClear";
             this.buttonSrcClear.Size = new System.Drawing.Size(75, 23);
-            this.buttonSrcClear.TabIndex = 55;
+            this.buttonSrcClear.TabIndex = 72;
             this.buttonSrcClear.Text = "Clear";
             this.buttonSrcClear.UseVisualStyleBackColor = true;
+            this.buttonSrcClear.Click += new System.EventHandler(this.buttonSrcClear_Click);
             // 
             // buttonHome
             // 
             this.buttonHome.Location = new System.Drawing.Point(950, 404);
             this.buttonHome.Name = "buttonHome";
             this.buttonHome.Size = new System.Drawing.Size(75, 23);
-            this.buttonHome.TabIndex = 53;
+            this.buttonHome.TabIndex = 70;
             this.buttonHome.Text = "Home";
             this.buttonHome.UseVisualStyleBackColor = true;
             this.buttonHome.Click += new System.EventHandler(this.buttonHome_Click);
@@ -94,14 +95,14 @@
             this.dgvCategoryList.Name = "dgvCategoryList";
             this.dgvCategoryList.RowHeadersVisible = false;
             this.dgvCategoryList.Size = new System.Drawing.Size(623, 292);
-            this.dgvCategoryList.TabIndex = 54;
+            this.dgvCategoryList.TabIndex = 71;
             // 
             // btnClear
             // 
             this.btnClear.Location = new System.Drawing.Point(166, 281);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
-            this.btnClear.TabIndex = 52;
+            this.btnClear.TabIndex = 69;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -113,7 +114,7 @@
             this.cmbRootCategory.Location = new System.Drawing.Point(148, 72);
             this.cmbRootCategory.Name = "cmbRootCategory";
             this.cmbRootCategory.Size = new System.Drawing.Size(193, 21);
-            this.cmbRootCategory.TabIndex = 51;
+            this.cmbRootCategory.TabIndex = 68;
             // 
             // rbSubCategory
             // 
@@ -121,7 +122,7 @@
             this.rbSubCategory.Location = new System.Drawing.Point(252, 33);
             this.rbSubCategory.Name = "rbSubCategory";
             this.rbSubCategory.Size = new System.Drawing.Size(89, 17);
-            this.rbSubCategory.TabIndex = 50;
+            this.rbSubCategory.TabIndex = 67;
             this.rbSubCategory.TabStop = true;
             this.rbSubCategory.Text = "Sub Category";
             this.rbSubCategory.UseVisualStyleBackColor = true;
@@ -132,7 +133,7 @@
             this.rbRootCategory.Location = new System.Drawing.Point(148, 33);
             this.rbRootCategory.Name = "rbRootCategory";
             this.rbRootCategory.Size = new System.Drawing.Size(93, 17);
-            this.rbRootCategory.TabIndex = 49;
+            this.rbRootCategory.TabIndex = 66;
             this.rbRootCategory.TabStop = true;
             this.rbRootCategory.Text = "Root Category";
             this.rbRootCategory.UseVisualStyleBackColor = true;
@@ -143,7 +144,7 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(193, 65);
-            this.txtDescription.TabIndex = 45;
+            this.txtDescription.TabIndex = 62;
             // 
             // txtCode
             // 
@@ -151,21 +152,22 @@
             this.txtCode.Name = "txtCode";
             this.txtCode.ReadOnly = true;
             this.txtCode.Size = new System.Drawing.Size(193, 20);
-            this.txtCode.TabIndex = 46;
+            this.txtCode.TabIndex = 63;
             // 
             // textBoxSrc
             // 
             this.textBoxSrc.Location = new System.Drawing.Point(732, 36);
             this.textBoxSrc.Name = "textBoxSrc";
             this.textBoxSrc.Size = new System.Drawing.Size(193, 20);
-            this.textBoxSrc.TabIndex = 48;
+            this.textBoxSrc.TabIndex = 65;
+            this.textBoxSrc.TextChanged += new System.EventHandler(this.textBoxSrc_TextChanged);
             // 
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(148, 113);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(193, 20);
-            this.txtName.TabIndex = 47;
+            this.txtName.TabIndex = 64;
             // 
             // label3
             // 
@@ -173,7 +175,7 @@
             this.label3.Location = new System.Drawing.Point(59, 193);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 43;
+            this.label3.TabIndex = 60;
             this.label3.Text = "Description";
             // 
             // label2
@@ -182,7 +184,7 @@
             this.label2.Location = new System.Drawing.Point(59, 153);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
-            this.label2.TabIndex = 44;
+            this.label2.TabIndex = 61;
             this.label2.Text = "Code";
             // 
             // label4
@@ -191,7 +193,7 @@
             this.label4.Location = new System.Drawing.Point(59, 75);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 13);
-            this.label4.TabIndex = 41;
+            this.label4.TabIndex = 58;
             this.label4.Text = "Root Category";
             // 
             // label1
@@ -200,7 +202,7 @@
             this.label1.Location = new System.Drawing.Point(59, 113);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 42;
+            this.label1.TabIndex = 59;
             this.label1.Text = "Name";
             // 
             // ExpenseCategoryForm

@@ -41,8 +41,14 @@ namespace POS_System_EF.UI
 
                 }
 
-
             }
+        }
+
+        private void buttonSignOut_Click(object sender, EventArgs e)
+        {
+            txtUserName.Clear();
+            txtPassword.Clear();
+            this.Close();
         }
     }
 }

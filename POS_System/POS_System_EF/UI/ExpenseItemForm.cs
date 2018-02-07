@@ -15,7 +15,7 @@ namespace POS_System_EF.UI
     public partial class ExpenseItemForm : Form
     {
         ManagerContext db = new ManagerContext();
-        ExpenseItem expenseItem=new ExpenseItem();
+        ExpenseItem expenseItem = new ExpenseItem();
         public ExpenseItemForm()
         {
             InitializeComponent();
@@ -24,7 +24,11 @@ namespace POS_System_EF.UI
         }
         private void ComboxData()
         {
-            cmbCategory.DataSource = db.ItemCategories.ToList();
+            var loadRootCat = (from exCat in db.ExpenseCategories
+                               where exCat.RootCategoryId == 0
+                               select exCat).ToList();
+
+            cmbCategory.DataSource = loadRootCat.ToList();
             cmbCategory.DisplayMember = "Name";
             cmbCategory.ValueMember = "Id";
             cmbCategory.SelectedIndex = -1;
@@ -65,7 +69,7 @@ namespace POS_System_EF.UI
             cmbCategory.SelectedIndex = -1;
         }
 
-       
+
         private void LoadDataGridViewItem()
         {
             var item = (from expItems in db.ExpenseItems
@@ -73,10 +77,12 @@ namespace POS_System_EF.UI
                         {
                             expItems.Name,
                             expItems.Code,
-                            expItems.Description
+                            expItems.Description,
+                            ExpenseCategoryName =expItems.ExpenseCategory.Name
                         }).ToList();
             dgvItem.DataSource = item;
         }
+
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearAllTextBox();
@@ -84,9 +90,30 @@ namespace POS_System_EF.UI
 
         private void buttonHome_Click(object sender, EventArgs e)
         {
-            OpeningForm openingForm = new OpeningForm();
-            openingForm.Show();
-            this.Hide();
+           //OpeningForm opening=new OpeningForm();
+            //opening.Show();
+            this.Close();
+        }
+
+        private void textBoxSrc_TextChanged(object sender, EventArgs e)
+        {
+            string textSearch = textBoxSrc.Text;
+            var item = (from ei in db.ExpenseItems
+                        where ei.Name.StartsWith(textSearch)
+                        select new
+                        {
+                            ei.Name,
+                            ei.Code,
+                            ei.Description,
+                            ExpenseCategoryName=ei.ExpenseCategory.Name
+                        }).ToList();
+            dgvItem.DataSource = item;
+        }
+
+        private void buttonSrcClear_Click(object sender, EventArgs e)
+        {
+            textBoxSrc.Clear();
+            LoadDataGridViewItem();
         }
     }
 }

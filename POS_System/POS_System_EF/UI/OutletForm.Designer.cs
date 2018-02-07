@@ -75,6 +75,7 @@
             this.btnClearSrcBox.TabIndex = 29;
             this.btnClearSrcBox.Text = "Clear";
             this.btnClearSrcBox.UseVisualStyleBackColor = true;
+            this.btnClearSrcBox.Click += new System.EventHandler(this.btnClearSrcBox_Click);
             // 
             // textBoxSrc
             // 
@@ -99,6 +100,7 @@
             this.dgvOutlet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOutlet.Location = new System.Drawing.Point(6, 59);
             this.dgvOutlet.Name = "dgvOutlet";
+            this.dgvOutlet.RowHeadersVisible = false;
             this.dgvOutlet.Size = new System.Drawing.Size(614, 252);
             this.dgvOutlet.TabIndex = 4;
             // 

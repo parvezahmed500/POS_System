@@ -43,12 +43,12 @@ namespace POS_System_EF.UI
                 int count = db.SaveChanges();
                 if (count > 0)
                 {
-                    MessageBox.Show("Saved");
+                    MessageBox.Show("Outlet Saved");
 
                 }
                 else
                 {
-                    MessageBox.Show("Failed");
+                    MessageBox.Show(" Save Failed");
                 }
 
             }
@@ -79,8 +79,8 @@ namespace POS_System_EF.UI
                            join org in db.Organizations on outlet.OrganizationId equals org.Id
                            select new
                            {
-                               Organization = org.Name,
-                                outlet.Name,
+                               OrganizationName = org.Name,
+                               OutletName=outlet.Name,
                                 outlet.Code,
                                 outlet.ContactNo,
                                 outlet.Address
@@ -89,9 +89,9 @@ namespace POS_System_EF.UI
         }
         private void buttonHome_Click(object sender, EventArgs e)
         {
-            OpeningForm openingForm=new OpeningForm();
-            openingForm.Show();
-            this.Hide();
+            //OpeningForm openingForm=new OpeningForm();
+            //openingForm.Show();
+            this.Close();
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -102,16 +102,23 @@ namespace POS_System_EF.UI
         private void textBoxSrc_TextChanged(object sender, EventArgs e)
         {
             string textSearch = textBoxSrc.Text;
-            ManagerContext db = new ManagerContext();
-            var outlet = (from org in db.Organizations
-                                where org.Name.StartsWith(textSearch)
+            var outlet = (from outlet1 in db.Outlets
+                                where outlet1.Name.StartsWith(textSearch)
                                 select new
                                 {
-                                    org.Name,
-                                    org.Code,
-                                    org.ContactNo
+                                    OrganizationName=outlet1.Organization.Name,
+                                    OutletName= outlet1.Name,
+                                    outlet1.Code,
+                                    outlet1.ContactNo,
+                                    outlet1.Address,
                                 }).ToList();
             dgvOutlet.DataSource = outlet;
+        }
+
+        private void btnClearSrcBox_Click(object sender, EventArgs e)
+        {
+            LoadDataGridView();
+            textBoxSrc.Clear();
         }
     }
 }

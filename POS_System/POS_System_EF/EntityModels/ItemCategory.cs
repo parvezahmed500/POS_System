@@ -17,8 +17,8 @@ namespace POS_System_EF.EntityModels
         [MaxLength(12)]
         public string Code { get; set; }
         public string Description { get; set; }
-        public int? CategoryId { get; set; }
-        public ItemCategory Category { get; set; }
+        public int RootCategoryId { get; set; }
+        public string RootCategoryName { get; set; }
 
         internal string GenearateCodeRoot(string Name)
         {

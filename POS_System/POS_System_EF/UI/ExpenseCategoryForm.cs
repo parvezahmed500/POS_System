@@ -15,7 +15,7 @@ namespace POS_System_EF.UI
     public partial class ExpenseCategoryForm : Form
     {
         ManagerContext db = new ManagerContext();
-        ExpenseCategory expenseCategory=new ExpenseCategory();
+        ExpenseCategory expenseCategory = new ExpenseCategory();
         public ExpenseCategoryForm()
         {
             InitializeComponent();
@@ -25,10 +25,10 @@ namespace POS_System_EF.UI
         private void LoadCombobox()
         {
             var loadCategory = (from expenseCategory in db.ExpenseCategories
-                where expenseCategory.RootCategoryId == 0
-                select expenseCategory
+                                where expenseCategory.RootCategoryId == 0
+                                select expenseCategory
                 ).ToList();
-            
+
             cmbRootCategory.DataSource = loadCategory;
             cmbRootCategory.DisplayMember = "Name";
             cmbRootCategory.ValueMember = "Id";
@@ -109,6 +109,7 @@ namespace POS_System_EF.UI
                         }).ToList();
             dgvCategoryList.DataSource = item;
         }
+
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearAllTextBox();
@@ -116,9 +117,31 @@ namespace POS_System_EF.UI
 
         private void buttonHome_Click(object sender, EventArgs e)
         {
-            OpeningForm openingForm = new OpeningForm();
-            openingForm.Show();
-            this.Hide();
+            //MainForm mainForm=new MainForm();
+            //mainForm.Show();
+            this.Close();
+        }
+
+        private void textBoxSrc_TextChanged(object sender, EventArgs e)
+        {
+            string textSearch = textBoxSrc.Text;
+            ManagerContext db = new ManagerContext();
+            var item = (from exp in db.ExpenseCategories
+                        where exp.Name.StartsWith(textSearch)
+                        select new
+                        {
+                            exp.Name,
+                            exp.Code,
+                            exp.Description,
+                            exp.RootCategoryName
+                        }).ToList();
+            dgvCategoryList.DataSource = item;
+        }
+
+        private void buttonSrcClear_Click(object sender, EventArgs e)
+        {
+            textBoxSrc.Clear();
+            LoadDataGridView();
         }
     }
 }

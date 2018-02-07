@@ -22,12 +22,34 @@ namespace POS_System_EF.UI
             ComboxData();
             LoadDataGridViewItem();
         }
+        private void ComboxData()
+        {
+            var loadRootCat = (from itemCat in db.ItemCategories
+                where itemCat.RootCategoryId == 0
+                select itemCat).ToList();
+            
+            cmbCategory.DataSource = loadRootCat.ToList();
+            cmbCategory.DisplayMember = "Name";
+            cmbCategory.ValueMember = "Id";
+            cmbCategory.SelectedIndex = -1;
+        }
+        private void cmbCategory_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var loadSubCat = (from subCat in db.ItemCategories
+                where subCat.RootCategoryId == (int) cmbCategory.SelectedValue
+                select subCat).ToList();
 
+            comboBoxSubCat.DataSource = loadSubCat.ToList();
+            comboBoxSubCat.DisplayMember = "Name";
+            comboBoxSubCat.ValueMember = "Id";
+            comboBoxSubCat.SelectedIndex = -1;
+
+        }
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                item.ItemCategoryId = (int)cmbCategory.SelectedValue;
+                item.ItemCategoryId = (int)comboBoxSubCat.SelectedValue;
                 item.Name = txtName.Text;
                 item.CostPrice = Convert.ToDecimal(txtCostPrice.Text);
                 item.SalePrice = Convert.ToDecimal(txtSalePrice.Text);
@@ -42,7 +64,7 @@ namespace POS_System_EF.UI
                 }
                 else
                 {
-                    MessageBox.Show("Failed Insertion");
+                    MessageBox.Show("Save Failed");
                 }
                 LoadDataGridViewItem();
                 ClearAllTextBox();
@@ -65,13 +87,7 @@ namespace POS_System_EF.UI
             cmbCategory.SelectedIndex = -1;
         }
 
-        private void ComboxData()
-        {
-            cmbCategory.DataSource = db.ItemCategories.ToList();
-            cmbCategory.DisplayMember = "Name";
-            cmbCategory.ValueMember = "Id";
-            cmbCategory.SelectedIndex = -1;
-        }
+        
         private void LoadDataGridViewItem()
         {
             var item = (from items in db.Items
@@ -81,16 +97,17 @@ namespace POS_System_EF.UI
                     items.Code,
                     items.CostPrice,
                     items.SalePrice,
-                    items.Description
+                    items.Description,
+                    CategoryName=items.ItemCategory.Name
                 }).ToList();
             dgvItem.DataSource = item;
         }
 
         private void buttonHome_Click(object sender, EventArgs e)
         {
-            OpeningForm openingForm=new OpeningForm();
-            openingForm.Show();
-            this.Hide();
+            //OpeningForm openingForm=new OpeningForm();
+            //openingForm.Show();
+            this.Close();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -101,7 +118,6 @@ namespace POS_System_EF.UI
         private void textBoxSrc_TextChanged(object sender, EventArgs e)
         {
             string textSearch = textBoxSrc.Text;
-            ManagerContext db = new ManagerContext();
             var item = (from i in db.Items
                                 where i.Name.StartsWith(textSearch)
                                 select new
@@ -110,8 +126,15 @@ namespace POS_System_EF.UI
                                     i.Code,
                                     i.CostPrice,
                                     i.SalePrice,
+                                    ItemCategory=i.ItemCategory.Name
                                 }).ToList();
             dgvItem.DataSource = item;
+        }
+
+        private void buttonSrcClear_Click(object sender, EventArgs e)
+        {
+            textBoxSrc.Clear();
+            LoadDataGridViewItem();
         }
     }
 }

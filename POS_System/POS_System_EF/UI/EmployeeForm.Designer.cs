@@ -71,8 +71,8 @@
             this.btnClearImage = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEmp)).BeginInit();
             this.SuspendLayout();
@@ -101,7 +101,6 @@
             this.dataGridViewEmployee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEmployee.Location = new System.Drawing.Point(27, 263);
             this.dataGridViewEmployee.Name = "dataGridViewEmployee";
-            this.dataGridViewEmployee.ReadOnly = true;
             this.dataGridViewEmployee.RowHeadersVisible = false;
             this.dataGridViewEmployee.Size = new System.Drawing.Size(1025, 171);
             this.dataGridViewEmployee.TabIndex = 118;
@@ -114,6 +113,7 @@
             this.buttonSrcClear.TabIndex = 115;
             this.buttonSrcClear.Text = "Clear";
             this.buttonSrcClear.UseVisualStyleBackColor = true;
+            this.buttonSrcClear.Click += new System.EventHandler(this.buttonSrcClear_Click);
             // 
             // buttonPrint
             // 
@@ -291,6 +291,7 @@
             this.cmbOrg.Name = "cmbOrg";
             this.cmbOrg.Size = new System.Drawing.Size(199, 21);
             this.cmbOrg.TabIndex = 96;
+            this.cmbOrg.SelectionChangeCommitted += new System.EventHandler(this.cmbOrg_SelectionChangeCommitted);
             // 
             // txtEmail
             // 
@@ -449,19 +450,6 @@
             this.label19.TabIndex = 124;
             this.label19.Text = "Search Box";
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Red;
-            this.textBox1.Location = new System.Drawing.Point(529, 66);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(156, 111);
-            this.textBox1.TabIndex = 91;
-            this.textBox1.Text = "\r\nPicture size 300*300px and format JPEG/JPG. Max 100 Kb. ";
-            // 
             // label20
             // 
             this.label20.AutoSize = true;
@@ -471,11 +459,24 @@
             this.label20.TabIndex = 125;
             this.label20.Text = "+88-";
             // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.ForeColor = System.Drawing.Color.Red;
+            this.textBox1.Location = new System.Drawing.Point(529, 67);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(156, 100);
+            this.textBox1.TabIndex = 126;
+            this.textBox1.Text = "\r\n Image JPEG or JPG\r\n Image size 300*300px and max 100 KB";
+            // 
             // EmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 481);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.btnClearImage);
@@ -511,7 +512,6 @@
             this.Controls.Add(this.txtCode);
             this.Controls.Add(this.txtReference);
             this.Controls.Add(this.txtContactNo);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label18);
@@ -575,8 +575,8 @@
         private System.Windows.Forms.Button btnClearImage;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textBox1;
 
     }
 }

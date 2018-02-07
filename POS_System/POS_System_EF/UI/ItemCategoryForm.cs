@@ -25,20 +25,22 @@ namespace POS_System_EF.UI
 
         private void LoadCombobox()
         {
-            var loadCategory = db.ItemCategories.ToList();
-            cmbRootCategory.DataSource = loadCategory;
+            var loadSubCatagory = (from itemCategory in db.ItemCategories
+                                   where itemCategory.RootCategoryId == 0
+                                   select itemCategory).ToList();
+
+            cmbRootCategory.DataSource = loadSubCatagory;
             cmbRootCategory.DisplayMember = "Name";
             cmbRootCategory.ValueMember = "Id";
             cmbRootCategory.SelectedIndex = -1;
         }
-
-        private void btnSaveCategory_Click(object sender, EventArgs e)
+        private void btnSaveCategory_Click_1(object sender, EventArgs e)
         {
             try
             {
                 if (rbRootCategory.Checked)
                 {
-                    
+
                     itemCategory.Name = txtName.Text;
                     itemCategory.Code = itemCategory.GenearateCodeRoot(itemCategory.Name);
                     itemCategory.Description = txtDescription.Text;
@@ -57,7 +59,8 @@ namespace POS_System_EF.UI
                 else if (rbSubCategory.Checked)
                 {
 
-                    itemCategory.CategoryId = (int)cmbRootCategory.SelectedValue;
+                    itemCategory.RootCategoryId = (int)cmbRootCategory.SelectedValue;
+                    itemCategory.RootCategoryName = cmbRootCategory.Text;
                     itemCategory.Name = txtName.Text;
                     itemCategory.Code = itemCategory.GenearateCodeSub(itemCategory.Name);
                     itemCategory.Description = txtDescription.Text;
@@ -85,7 +88,6 @@ namespace POS_System_EF.UI
             LoadDataGridView();
             ClearAllTextBox();
         }
-
         private void ClearAllTextBox()
         {
             rbRootCategory.Checked = false;
@@ -97,47 +99,46 @@ namespace POS_System_EF.UI
         }
         private void LoadDataGridView()
         {
-            var dgvLoad = (from itemCategory in db.ItemCategories.Where(c=>c.Id==c.CategoryId)
+            var dgvLoad = (from itemCategory in db.ItemCategories
                            select new
                            {
                                itemCategory.Name,
                                itemCategory.Code,
                                itemCategory.Description,
-                               SubCategory=itemCategory.Name
+                               itemCategory.RootCategoryName
                            }).ToList();
 
             dgvCategoryList.DataSource = dgvLoad;
         }
-        private void buttonHome_Click_1(object sender, EventArgs e)
-        {
-            OpeningForm openingForm=new OpeningForm();
-            openingForm.Show();
-            this.Hide();
-        }
-
-        private void btnClear_Click_1(object sender, EventArgs e)
+        private void btnClear_Click(object sender, EventArgs e)
         {
             ClearAllTextBox();
+        }
+        private void buttonHome_Click_1(object sender, EventArgs e)
+        {
+            //OpeningForm openingForm=new OpeningForm();
+            //openingForm.Show();
+            this.Close();
         }
 
         private void textBoxSrc_TextChanged(object sender, EventArgs e)
         {
             string textSearch = textBoxSrc.Text;
-            ManagerContext db = new ManagerContext();
             var category = (from cat in db.ItemCategories
                                 where cat.Name.StartsWith(textSearch)
                                 select new
                                 {
                                     cat.Name,
                                     cat.Code,
-                                    cat.Description
+                                    cat.Description,
+                                    cat.RootCategoryName
                                 }).ToList();
             dgvCategoryList.DataSource = category;
         }
-
-        private void btnSaveCategory_Click_1(object sender, EventArgs e)
+        private void buttonSrcClear_Click(object sender, EventArgs e)
         {
-
+            textBoxSrc.Clear();
+            LoadDataGridView();
         }
     }
 }
