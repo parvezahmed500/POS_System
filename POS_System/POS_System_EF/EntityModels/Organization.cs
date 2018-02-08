@@ -23,6 +23,8 @@ namespace POS_System_EF.EntityModels
         [Required]
         [MaxLength(11)]
         public string ContactNo { get; set; }
+
+        public bool IsDelete { get; set; }
         public string GenerateCode(string Name, string address)
         {
             int code=0;

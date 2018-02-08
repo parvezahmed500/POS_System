@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201802062227579_expense_item_added.Designer.cs">
       <DependentUpon>201802062227579_expense_item_added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802081822534_IsDelete_added_in_organization.cs" />
+    <Compile Include="Migrations\201802081822534_IsDelete_added_in_organization.Designer.cs">
+      <DependentUpon>201802081822534_IsDelete_added_in_organization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UI\EmployeeForm.cs">
       <SubType>Form</SubType>
@@ -177,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802062227579_expense_item_added.resx">
       <DependentUpon>201802062227579_expense_item_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081822534_IsDelete_added_in_organization.resx">
+      <DependentUpon>201802081822534_IsDelete_added_in_organization.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\EmployeeForm.resx">
       <DependentUpon>EmployeeForm.cs</DependentUpon>

@@ -26,7 +26,7 @@ namespace POS_System_EF.UI
         }
         private void LoadDataGridView()
         {
-           var dgvShow   = (from org in db.Organizations
+           var dgvShow   = (from org in db.Organizations where org.IsDelete==false
                                            select new
                                            {
                                                org.Id,
@@ -130,7 +130,7 @@ namespace POS_System_EF.UI
         {
             string textSearch = textBoxSrc.Text;
             var organization = (from org in db.Organizations
-                               where org.Name.StartsWith(textSearch)
+                               where org.Name.StartsWith(textSearch) && org.IsDelete==false
                                select new
                                {
                                    org.Name,
@@ -201,6 +201,23 @@ namespace POS_System_EF.UI
             buttonDelete.Visible = false;
             buttonUpdate.Visible = false;
             btnSave.Visible = true;
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            int id = (int)dgvOrganization.SelectedRows[0].Cells["Id"].Value;
+            var updateOrg = db.Organizations.FirstOrDefault(c => c.Id == id);
+            if (updateOrg != null)
+            {
+                org = updateOrg;
+                updateOrg.IsDelete = true;
+                db.SaveChanges();
+            }
+            buttonDelete.Visible = false;
+            buttonUpdate.Visible = false;
+            btnSave.Visible = true;
+            LoadDataGridView();
+            ClearTextBoxAll();
         }
     }
 }
