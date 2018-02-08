@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,6 +29,7 @@ namespace POS_System_EF.UI
            var dgvShow   = (from org in db.Organizations
                                            select new
                                            {
+                                               org.Id,
                                                org.Name,
                                                org.Code,
                                                org.ContactNo,
@@ -35,6 +37,7 @@ namespace POS_System_EF.UI
                                                org.Logo
                                            }).ToList();
             dgvOrganization.DataSource = dgvShow;
+            this.dgvOrganization.Columns["Id"].Visible = false;
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -110,7 +113,8 @@ namespace POS_System_EF.UI
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearTextBoxAll();
-            
+            btnSave.Visible = true;
+
         }
         private void btnClearImage_Click(object sender, EventArgs e)
         {
@@ -140,6 +144,63 @@ namespace POS_System_EF.UI
         {
             LoadDataGridView();
             textBoxSrc.Clear();
+        }
+        private void buttonSelectUpdate_Click(object sender, EventArgs e)
+        {
+            int id = (int)dgvOrganization.SelectedRows[0].Cells["Id"].Value;
+            var updateOrg = db.Organizations.FirstOrDefault(c => c.Id == id);
+            if (updateOrg!=null)
+            {
+                org = updateOrg;
+                txtOranizationName.Text = updateOrg.Name;
+                txtOrgnizationCode.Text = updateOrg.Code;
+                txtAddress.Text = updateOrg.Address;
+                txtContactNo.Text = updateOrg.ContactNo; 
+            }
+            buttonDelete.Visible = true;
+            buttonUpdate.Visible = true;
+            btnSave.Visible = false;
+
+        }
+        private void buttonUpdate_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                //org.Id = org.Id;
+                org.Name = txtOranizationName.Text;
+                org.ContactNo = txtContactNo.Text;
+                org.Address = txtAddress.Text;
+                org.Code = org.GenerateCode(org.Name, org.Address);
+                org.Logo = org.Logo;
+                bool isContactNoExist = db.Organizations.Count(c => c.ContactNo == org.ContactNo) > 1;
+                if (isContactNoExist)
+                {
+                    MessageBox.Show("Contact No Allready Exist");
+                    return;
+                }
+
+                    db.Organizations.Attach(org);
+                    db.Entry(org).State=EntityState.Modified;
+                    bool isUpdate=db.SaveChanges()>0;
+                    if (isUpdate)
+                    {
+                        MessageBox.Show("Update successfully saved");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Save Failed");
+                    }
+                    LoadDataGridView();
+                    ClearTextBoxAll();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message + " \n" + " Please fill text Box!");
+            }
+            buttonDelete.Visible = false;
+            buttonUpdate.Visible = false;
+            btnSave.Visible = true;
         }
     }
 }

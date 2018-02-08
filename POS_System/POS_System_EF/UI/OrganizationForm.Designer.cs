@@ -50,6 +50,9 @@
             this.btnClearImage = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.buttonSelectUpdate = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrganization)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrg)).BeginInit();
             this.SuspendLayout();
@@ -61,12 +64,13 @@
             this.dgvOrganization.Location = new System.Drawing.Point(404, 70);
             this.dgvOrganization.Name = "dgvOrganization";
             this.dgvOrganization.RowHeadersVisible = false;
+            this.dgvOrganization.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOrganization.Size = new System.Drawing.Size(608, 283);
             this.dgvOrganization.TabIndex = 28;
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(168, 358);
+            this.btnClear.Location = new System.Drawing.Point(178, 358);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 26;
@@ -218,7 +222,7 @@
             // 
             // buttonPrint
             // 
-            this.buttonPrint.Location = new System.Drawing.Point(856, 391);
+            this.buttonPrint.Location = new System.Drawing.Point(837, 391);
             this.buttonPrint.Name = "buttonPrint";
             this.buttonPrint.Size = new System.Drawing.Size(75, 23);
             this.buttonPrint.TabIndex = 27;
@@ -256,11 +260,45 @@
             this.label7.TabIndex = 19;
             this.label7.Text = "+88 -";
             // 
+            // buttonSelectUpdate
+            // 
+            this.buttonSelectUpdate.Location = new System.Drawing.Point(717, 391);
+            this.buttonSelectUpdate.Name = "buttonSelectUpdate";
+            this.buttonSelectUpdate.Size = new System.Drawing.Size(89, 23);
+            this.buttonSelectUpdate.TabIndex = 126;
+            this.buttonSelectUpdate.Text = "Select Update";
+            this.buttonSelectUpdate.UseVisualStyleBackColor = true;
+            this.buttonSelectUpdate.Click += new System.EventHandler(this.buttonSelectUpdate_Click);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(624, 391);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 126;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Visible = false;
+            // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.Location = new System.Drawing.Point(87, 358);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(75, 23);
+            this.buttonUpdate.TabIndex = 126;
+            this.buttonUpdate.Text = "Update";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Visible = false;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click_1);
+            // 
             // OrganizationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 461);
+            this.Controls.Add(this.buttonUpdate);
+            this.Controls.Add(this.buttonDelete);
+            this.Controls.Add(this.buttonSelectUpdate);
             this.Controls.Add(this.btnClearImage);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.buttonUpload);
@@ -316,5 +354,8 @@
         private System.Windows.Forms.Button btnClearImage;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button buttonSelectUpdate;
+        private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Button buttonUpdate;
     }
 }
