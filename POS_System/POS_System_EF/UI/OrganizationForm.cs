@@ -19,6 +19,7 @@ namespace POS_System_EF.UI
     {
         ManagerContext db=new ManagerContext();
         Organization org=new Organization();
+        private bool IsUpdateMode=false;
         public OrganizationForm()
         {
             InitializeComponent();
@@ -37,46 +38,97 @@ namespace POS_System_EF.UI
                                                org.Logo
                                            }).ToList();
             dgvOrganization.DataSource = dgvShow;
-            this.dgvOrganization.Columns["Id"].Visible = false;
+            var dataGridViewColumn = dgvOrganization.Columns["Id"];
+            if (dataGridViewColumn != null) dataGridViewColumn.Visible = false;
+            for (int i = 0; i < dgvOrganization.Columns.Count; i++)
+            {
+                var column = dgvOrganization.Columns[i] as DataGridViewImageColumn;
+                if (column == null) continue;
+                column.ImageLayout = DataGridViewImageCellLayout.Stretch;
+                break;
+            }
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                org.Name = txtOranizationName.Text;
-                org.ContactNo = txtContactNo.Text;
-                org.Address = txtAddress.Text;
-                org.Code = org.GenerateCode(org.Name, org.Address);
-                org.Logo = org.Logo;
-                bool IsContactNoExist = db.Organizations.Count(c => c.ContactNo == org.ContactNo) > 0;
-                if(IsContactNoExist)
+                if (string.IsNullOrEmpty(txtOranizationName.Text)&&string.IsNullOrEmpty(txtContactNo.Text)&&string.IsNullOrEmpty(txtAddress.Text))
                 {
-                    MessageBox.Show("Contact No Allready Exist");
+                    MessageBox.Show("Please fill text box");
                     return;
                 }
-                else
+                if (!IsUpdateMode)
                 {
-                    db.Organizations.Add(org);
-                    int count = db.SaveChanges();
-                    if (count > 0)
+                    FillFormToOrganizationInfo();
+                    bool isContactNoExist = db.Organizations.Count(c => c.ContactNo == org.ContactNo) > 0;
+                    if (isContactNoExist)
                     {
-                        MessageBox.Show("Organization Saved");
+                        MessageBox.Show("Contact No Allready Exist");
+                        return;
                     }
-                    else
+                    DialogResult result = MessageBox.Show("Do you want to Save?", "Confirmation",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (result == DialogResult.Yes)
                     {
-                        MessageBox.Show("Save Failed");
+                        db.Organizations.Add(org);
+                        int count = db.SaveChanges();
+                        MessageBox.Show(count > 0 ? "Organization Saved" : "Save Failed");
                     }
-                    LoadDataGridView();
-                    ClearTextBoxAll();
+                    else if (result == DialogResult.No)
+                    {
+                        MessageBox.Show("You have clicked Cancel Button");
+                    }
+                }
+                else if (IsUpdateMode)
+                {
+
+                    FillFormToOrganizationInfo();
+                    bool isContactNoExist = db.Organizations.Count(c => c.ContactNo == org.ContactNo) > 1;
+                    if (isContactNoExist)
+                    {
+                        MessageBox.Show("Contact No Allready Exist");
+                        return;
+                    }
+                    DialogResult result = MessageBox.Show("Do you want to Update?", "Confirmation",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (result == DialogResult.Yes)
+                    {
+                        db.Organizations.Attach(org);
+                        db.Entry(org).State = EntityState.Modified;
+                        bool isUpdate = db.SaveChanges() > 0;
+                        MessageBox.Show(isUpdate ? "Update successfully saved" : "Update Failed");
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        MessageBox.Show("You have clicked Cancel Button");
+                    }
                 }
                 
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message + " \n" + " Please fill text Box!");
+                MessageBox.Show(ex.Message + " \n" + " Check technical error !");
             }
-            
+            LoadDataGridView();
+            ClearTextBoxAll();
+            SetFormToNewMode();
+        }
+
+        private void FillFormToOrganizationInfo()
+        {
+            org.Name = txtOranizationName.Text;
+            org.ContactNo = txtContactNo.Text;
+            org.Address = txtAddress.Text;
+            org.Code = org.GenerateCode(org.Name, org.Address);
+            org.Logo = org.Logo;
+        }
+
+        private void SetFormToNewMode()
+        {
+            buttonDelete.Visible = false;
+            btnSave.Text = "Save";
+            IsUpdateMode = false;
         }
 
         private void ClearTextBoxAll()
@@ -107,14 +159,13 @@ namespace POS_System_EF.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\n" + "Image format is not valid");
+                MessageBox.Show(ex.Message + "\n" + "Do you want to cancel!");
             }
         }
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearTextBoxAll();
-            btnSave.Visible = true;
-
+            SetFormToNewMode();
         }
         private void btnClearImage_Click(object sender, EventArgs e)
         {
@@ -145,64 +196,6 @@ namespace POS_System_EF.UI
             LoadDataGridView();
             textBoxSrc.Clear();
         }
-        private void buttonSelectUpdate_Click(object sender, EventArgs e)
-        {
-            int id = (int)dgvOrganization.SelectedRows[0].Cells["Id"].Value;
-            var updateOrg = db.Organizations.FirstOrDefault(c => c.Id == id);
-            if (updateOrg!=null)
-            {
-                org = updateOrg;
-                txtOranizationName.Text = updateOrg.Name;
-                txtOrgnizationCode.Text = updateOrg.Code;
-                txtAddress.Text = updateOrg.Address;
-                txtContactNo.Text = updateOrg.ContactNo; 
-            }
-            buttonDelete.Visible = true;
-            buttonUpdate.Visible = true;
-            btnSave.Visible = false;
-
-        }
-        private void buttonUpdate_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                //org.Id = org.Id;
-                org.Name = txtOranizationName.Text;
-                org.ContactNo = txtContactNo.Text;
-                org.Address = txtAddress.Text;
-                org.Code = org.GenerateCode(org.Name, org.Address);
-                org.Logo = org.Logo;
-                bool isContactNoExist = db.Organizations.Count(c => c.ContactNo == org.ContactNo) > 1;
-                if (isContactNoExist)
-                {
-                    MessageBox.Show("Contact No Allready Exist");
-                    return;
-                }
-
-                    db.Organizations.Attach(org);
-                    db.Entry(org).State=EntityState.Modified;
-                    bool isUpdate=db.SaveChanges()>0;
-                    if (isUpdate)
-                    {
-                        MessageBox.Show("Update successfully saved");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Save Failed");
-                    }
-                    LoadDataGridView();
-                    ClearTextBoxAll();
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message + " \n" + " Please fill text Box!");
-            }
-            buttonDelete.Visible = false;
-            buttonUpdate.Visible = false;
-            btnSave.Visible = true;
-        }
-
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             int id = (int)dgvOrganization.SelectedRows[0].Cells["Id"].Value;
@@ -211,13 +204,52 @@ namespace POS_System_EF.UI
             {
                 org = updateOrg;
                 updateOrg.IsDelete = true;
-                db.SaveChanges();
+
+
+                DialogResult result = MessageBox.Show("Do you want to Delete?", "Confirmation", MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        db.SaveChanges();
+                        MessageBox.Show("Successfully deleted");
+                        break;
+                    case DialogResult.No:
+                        MessageBox.Show("You have clicked Cancel Button");
+                        break;
+                }
             }
-            buttonDelete.Visible = false;
-            buttonUpdate.Visible = false;
-            btnSave.Visible = true;
+            else
+            {
+                MessageBox.Show("Delete failed");
+            }
+            SetFormToNewMode();
             LoadDataGridView();
             ClearTextBoxAll();
+        }
+
+        private void dgvOrganization_DoubleClick(object sender, EventArgs e)
+        {
+            int id = (int)dgvOrganization.SelectedRows[0].Cells["Id"].Value;
+            var updateOrg = db.Organizations.FirstOrDefault(c => c.Id == id);
+            if (updateOrg != null)
+            {
+                org = updateOrg;
+                txtOranizationName.Text = updateOrg.Name;
+                txtOrgnizationCode.Text = updateOrg.Code;
+                txtAddress.Text = updateOrg.Address;
+                txtContactNo.Text = updateOrg.ContactNo;
+                org.Logo = updateOrg.Logo;
+                MemoryStream memoryStream = new MemoryStream(org.Logo);
+                pictureBoxOrg.Image = Image.FromStream(memoryStream);
+            }
+            SetFormToUpdateMode();
+        }
+
+        private void SetFormToUpdateMode()
+        {
+            IsUpdateMode = true;
+            buttonDelete.Visible = true;
+            btnSave.Text = "Update";
         }
     }
 }
