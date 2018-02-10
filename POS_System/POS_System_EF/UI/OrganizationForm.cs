@@ -121,6 +121,7 @@ namespace POS_System_EF.UI
             org.ContactNo = txtContactNo.Text;
             org.Address = txtAddress.Text;
             org.Code = org.GenerateCode(org.Name, org.Address);
+            txtOrgnizationCode.Text = org.Code;
             org.Logo = org.Logo;
         }
 

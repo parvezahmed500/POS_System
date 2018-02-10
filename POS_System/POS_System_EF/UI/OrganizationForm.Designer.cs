@@ -110,7 +110,6 @@
             // 
             this.txtOrgnizationCode.Location = new System.Drawing.Point(85, 63);
             this.txtOrgnizationCode.Name = "txtOrgnizationCode";
-            this.txtOrgnizationCode.ReadOnly = true;
             this.txtOrgnizationCode.Size = new System.Drawing.Size(270, 20);
             this.txtOrgnizationCode.TabIndex = 24;
             // 

@@ -60,6 +60,7 @@
     <Compile Include="EntityModels\Employee.cs" />
     <Compile Include="EntityModels\ExpenseCategory.cs" />
     <Compile Include="EntityModels\ExpenseItem.cs" />
+    <Compile Include="EntityModels\ExpenseOperation.cs" />
     <Compile Include="EntityModels\Item.cs" />
     <Compile Include="EntityModels\ItemCategory.cs" />
     <Compile Include="EntityModels\Organization.cs" />
@@ -94,6 +95,10 @@
     <Compile Include="Migrations\201802081822534_IsDelete_added_in_organization.cs" />
     <Compile Include="Migrations\201802081822534_IsDelete_added_in_organization.Designer.cs">
       <DependentUpon>201802081822534_IsDelete_added_in_organization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802100734454_Expense_Operation_Form_Added.cs" />
+    <Compile Include="Migrations\201802100734454_Expense_Operation_Form_Added.Designer.cs">
+      <DependentUpon>201802100734454_Expense_Operation_Form_Added.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UI\EmployeeForm.cs">
@@ -140,6 +145,12 @@
     <Compile Include="UI\ItemForm.Designer.cs">
       <DependentUpon>ItemForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ExpenseOperationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ExpenseOperationForm.Designer.cs">
+      <DependentUpon>ExpenseOperationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\OrganizationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +196,9 @@
     <EmbeddedResource Include="Migrations\201802081822534_IsDelete_added_in_organization.resx">
       <DependentUpon>201802081822534_IsDelete_added_in_organization.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802100734454_Expense_Operation_Form_Added.resx">
+      <DependentUpon>201802100734454_Expense_Operation_Form_Added.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\EmployeeForm.resx">
       <DependentUpon>EmployeeForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -215,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ItemForm.resx">
       <DependentUpon>ItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ExpenseOperationForm.resx">
+      <DependentUpon>ExpenseOperationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OrganizationForm.resx">
       <DependentUpon>OrganizationForm.cs</DependentUpon>

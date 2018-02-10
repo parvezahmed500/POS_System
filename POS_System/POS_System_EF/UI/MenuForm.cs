@@ -72,7 +72,8 @@ namespace POS_System_EF
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ExpenseOperationForm expenseForm=new ExpenseOperationForm();
+            expenseForm.Show();
         }
 
         private void expenseCategorySetUpToolStripMenuItem_Click(object sender, EventArgs e)

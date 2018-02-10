@@ -58,3 +58,5 @@ C:\Users\USER\Desktop\Project file pos\POS_System\POS_System_EF\obj\Debug\POS_Sy
 C:\Users\USER\Desktop\Project file pos\POS_System\POS_System_EF\obj\Debug\POS_System_EF.csproj.GenerateResource.Cache
 C:\Users\USER\Desktop\Project file pos\POS_System\POS_System_EF\obj\Debug\POS_System_EF.Migrations.IsDelete_added_in_organization.resources
 C:\Users\USER\Desktop\POS_System\POS_System\POS_System_EF\obj\Debug\POS_System_EF.Migrations.IsDelete_added_in_organization.resources
+C:\Users\USER\Desktop\POS_System\POS_System\POS_System_EF\obj\Debug\POS_System_EF.UI.ExpenseOperationForm.resources
+C:\Users\USER\Desktop\POS_System\POS_System\POS_System_EF\obj\Debug\POS_System_EF.Migrations.Expense_Operation_Form_Added.resources

@@ -64,8 +64,8 @@
             this.expenseSetupToolStripMenuItem,
             this.purchaseManageToolStripMenuItem,
             this.salesManageToolStripMenuItem,
-            this.reportToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.reportToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1189, 29);
@@ -206,8 +206,8 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(78, 25);
-            this.aboutToolStripMenuItem.Text = "Expense";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(82, 25);
+            this.aboutToolStripMenuItem.Text = "Expense ";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // OpeningForm
